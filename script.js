@@ -4,7 +4,6 @@
 const chatBox = document.getElementById("chat-box");
 const userInput = document.getElementById("user-input");
 const sendBtn = document.getElementById("send-btn");
-const portalBtn = document.getElementById("portalBtn");
 const timetable = document.getElementById("exam-timetable");
 
 let isTyping = false;
@@ -16,7 +15,7 @@ let controller;
 // ------------------------------
 document.addEventListener("mousemove", (e) => {
   const mouseEffect = document.querySelector(".mouse-effect");
-  mouseEffect.style.background = `radial-gradient(circle at ${e.clientX}px ${e.clientY}px, rgba(251,175,65,0.05), transparent 25%)`;
+  mouseEffect.style.background = `radial-gradient(circle at ${e.clientX}px ${e.clientY}px, rgba(113, 15, 251, 0.34), transparent 25%)`;
 });
 
 // ------------------------------
@@ -37,6 +36,34 @@ window.onload = () => {
     if (e.target === modal) e.stopPropagation();
   };
 };
+
+// ------------------------------
+// Render Timetable
+// ------------------------------
+
+function renderTimetable(timetable) {
+    const tbody = document.querySelector("#timetable-table tbody");
+    tbody.innerHTML = ""; // clear old rows
+
+    timetable.forEach(row => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${row.subject}</td>
+            <td>${row.code}</td>
+            <td>${row.department}</td>
+            <td>${row.year}</td>
+            <td>${row.date}</td>
+            <td>${row.time}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+
+    const tableDiv = document.getElementById("exam-timetable");
+    tableDiv.style.display = "block";            // show table
+    tableDiv.style.opacity = 0;                  // start invisible
+    setTimeout(() => tableDiv.style.opacity = 1, 50);  // fade in
+    tableDiv.scrollIntoView({ behavior: "smooth" });
+}
 
 // ------------------------------
 // Feedback Buttons
@@ -143,7 +170,19 @@ async function sendMessage() {
     userInput.value = "";
     return;
   }
-
+  //Team Shortcut
+  if (question.toLowerCase().includes("created you")) {
+    window.open("/team", "_self"); 
+    appendMessage("Meet the team", "assistant");
+    userInput.value = "";
+    return;
+  }
+  if (question.toLowerCase().includes("your code")) {
+    appendMatrixMessage("🟩 Well, well… look who’s curious. Kudos, genius.", "assistant");
+    startMatrixEffect();
+    userInput.value = "";
+    return;
+}
   if (!isTyping) {
     appendMessage(question, "user");
     userInput.value = "";
@@ -182,39 +221,24 @@ async function sendMessage() {
   } else {
     stopTyping();
   }
-
-
-// Check if timetable data exists
-if (data.timetable && data.timetable.length > 0) {
-    const tbody = document.querySelector("#timetable-table tbody");
-    tbody.innerHTML = ""; // clear old rows
-    data.timetable.forEach(row => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td>${row.subject}</td>
-            <td>${row.code}</td>
-            <td>${row.department}</td>
-            <td>${row.year}</td>
-            <td>${row.date}</td>
-            <td>${row.time}</td>
-        `;
-        tbody.appendChild(tr);
-    });
-    document.getElementById("exam-timetable").style.display = "block";
-     // show table
-} else {
-    await typeEffect(data.answer); // normal chat message
-}
 }
 
 // ------------------------------
 // Event Listeners
 // ------------------------------
-sendBtn.addEventListener("click", sendMessage);
-userInput.addEventListener("keydown", e => { if (e.key === "Enter") sendMessage(); });
-portalBtn.addEventListener("click", () => {
-  window.open("https://sp.srmist.edu.in/srmiststudentportal/students/loginManager/youLogin.jsp", "_blank");
+document.addEventListener("DOMContentLoaded", () => {
+  const sendBtn = document.getElementById("send-btn");
+  const userInput = document.getElementById("user-input");
+  const portalBtn = document.getElementById("portalBtn");
+
+  sendBtn.addEventListener("click", sendMessage);
+  userInput.addEventListener("keydown", e => { if (e.key === "Enter") sendMessage(); });
+
+  portalBtn.addEventListener("click", () => {
+    window.open("https://sp.srmist.edu.in/srmiststudentportal/students/loginManager/youLogin.jsp", "_blank");
+  });
 });
+
 
 // Timetable Upload
 document.getElementById("uploadTimetableBtn").addEventListener("click", async () => {
@@ -270,6 +294,7 @@ document.getElementById("verifyPasswordBtn").addEventListener("click", () => {
   const status = document.getElementById("passwordStatus");
   const timetableDiv = document.getElementById("timetableUploadDiv");
   const seatDiv = document.getElementById("seatUploadDiv");
+  const newsUploadDiv = document.getElementById("newsUploadDiv");
 
 if (inputPass === adminPassword) {
   status.textContent = "✅ Password correct! You can now upload files.";
@@ -289,6 +314,11 @@ if (inputPass === adminPassword) {
   clearDiv.style.opacity = 0;
   setTimeout(() => clearDiv.style.opacity = 1, 100);
   clearDiv.style.transition = "opacity 0.8s ease";
+
+    newsUploadDiv.style.display = "block";
+    newsUploadDiv.style.opacity = 0;
+    setTimeout(() => newsUploadDiv.style.opacity = 1, 100);
+    newsUploadDiv.style.transition = "opacity 0.8s ease";
 } else {
   status.textContent = "❌ Incorrect password. Access denied!";
   status.style.color = "red";
@@ -350,7 +380,6 @@ window.addEventListener("scroll", function() {
   }
 });
 
-
 // Display chosen file name
 document.getElementById("timetableFile").addEventListener("change", (e) => {
   document.getElementById("timetableFileName").textContent =
@@ -360,38 +389,6 @@ document.getElementById("timetableFile").addEventListener("change", (e) => {
 document.getElementById("seatFile").addEventListener("change", (e) => {
   document.getElementById("seatFileName").textContent =
     e.target.files[0] ? e.target.files[0].name : "No file chosen";
-});
-
-
-//Timetable Section Toggle
-fetch("/ask", {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({question: userQuestion})
-})
-.then(res => res.json())
-.then(data => {
-    // If timetable data exists
-    if (data.timetable && data.timetable.length > 0) {
-    const tbody = document.querySelector("#timetable-table tbody");
-    tbody.innerHTML = ""; // clear old rows
-    data.timetable.forEach(row => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-            <td>${row.subject}</td>
-            <td>${row.code}</td>
-            <td>${row.department}</td>
-            <td>${row.year}</td>
-            <td>${row.date}</td>
-            <td>${row.time}</td>
-        `;
-        tbody.appendChild(tr);
-    });
-    document.getElementById("timetable-section").style.display = "block"; // show table
-} else {
-    // Normal chat message
-    document.getElementById("chat-box").innerHTML += `<p>${data.answer}</p>`;
-}
 });
 
 window.addEventListener("scroll", function() {
@@ -408,30 +405,29 @@ window.addEventListener("scroll", function() {
     adminPanel.classList.remove("visible");
   }
 });
+// ------------------------------
+// Side Text Scroll Fade (Hide down, Show up)
+// ------------------------------
 const sideText = document.querySelector(".side-text");
-const header = document.querySelector(".srm-header");
-const fadeDistance = 200; // pixels before reaching header to start fade
+let lastScrollTop = 0;
 
 window.addEventListener("scroll", () => {
-  const scrollY = window.scrollY;
-  const headerBottom = header.offsetTop + header.offsetHeight;
+  const currentScroll = window.scrollY || document.documentElement.scrollTop;
 
-  // Start fade 200px before header
-  const startFade = headerBottom + 50; 
-  const endFade = headerBottom; 
-
-  if (scrollY < headerBottom - fadeDistance) {
-    sideText.style.opacity = 1;
-    sideText.style.transform = `translateY(-50%)`;
-  } else if (scrollY >= startFade) {
-    const progress = Math.max(0, (scrollY - endFade) / fadeDistance);
-    sideText.style.opacity = 1 - progress;
-    sideText.style.transform = `translateY(${ -50 - (progress * 30) }%)`;
+  if (currentScroll > lastScrollTop) {
+    // Scrolling down → hide
+    sideText.style.opacity = "0";
+    sideText.style.transform = "translateY(-60%)";
   } else {
-    sideText.style.opacity = 0;
-    sideText.style.transform = `translateY(-80%)`;
+    // Scrolling up → show
+    sideText.style.opacity = "1";
+    sideText.style.transform = "translateY(-50%)";
   }
+
+  sideText.style.transition = "opacity 0.4s ease, transform 0.4s ease";
+  lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
 });
+
 
 function clearData(type) {
     if (!confirm(`Are you sure you want to delete all ${type} data?`)) return;
@@ -451,4 +447,105 @@ function clearData(type) {
         document.getElementById("clearStatus").innerText = "Error clearing data: " + err;
     });
 }
+
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("teamBtn").addEventListener("click", () => {
+      window.location.href = "team.html";
+    });
+  });
+
+document.addEventListener("DOMContentLoaded", () => {
+    const tcModal = document.getElementById("tcModal");
+    const acceptBtn = document.getElementById("acceptBtn");
+    const teamBtn = document.getElementById("teamBtn");
+
+    // Show modal / button based on localStorage
+    if (localStorage.getItem("tcAccepted") === "true") {
+        tcModal.style.display = "none";
+        teamBtn.style.display = "block";
+    } else {
+        tcModal.style.display = "flex";  // flex for centering modal
+        teamBtn.style.display = "none";
+    }
+
+    // Accept T&C
+    acceptBtn.addEventListener("click", () => {
+        localStorage.setItem("tcAccepted", "true");
+        tcModal.style.display = "none";
+        teamBtn.style.display = "block";
+    });
+
+    // Navigate to team page
+    teamBtn.addEventListener("click", () => {
+        window.location.href = "/team"; 
+    });
+});
+
+function startMatrixEffect() {
+    const canvas = document.getElementById("matrixCanvas");
+    canvas.style.display = "block";
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+    const fontSize = 18;
+    const columns = Math.floor(canvas.width / fontSize);
+    const drops = Array(columns).fill(0);
+
+    function draw() {
+        ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = "#00ff00";
+        ctx.font = fontSize + "px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+            const text = letters[Math.floor(Math.random() * letters.length)];
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
+            }
+            drops[i]++;
+        }
+
+        requestAnimationFrame(draw);
+    }
+
+    draw();
+
+    // Stop effect after 10 seconds
+    setTimeout(() => {
+        canvas.style.display = "none";
+    }, 10000);
+}
+
+function appendMatrixMessage(msg) {
+  const chatBox = document.getElementById("chat-box");
+  const message = document.createElement("div");
+  message.classList.add("message", "matrix");
+  message.textContent = msg;
+  chatBox.appendChild(message);
+
+  // Trigger fade-in
+  setTimeout(() => {
+    message.classList.add("show", "pulse");
+  }, 50);
+
+  // Optional: Fade-out after 4 seconds
+  setTimeout(() => {
+    message.classList.remove("show");
+    setTimeout(() => message.remove(), 800); // remove after fade-out
+  }, 10000);
+
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+document.getElementById("verifyPasswordBtn").addEventListener("click", () => {
+  const panel = document.querySelector(".admin-panel");
+  panel.classList.add("expanded");
+});
 
