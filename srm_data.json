@@ -1,6 +1,6 @@
 [
   {
-    "prompt": "Tell about SRM",
+    "prompt": "about SRM",
     "completion": "SRMIST 🏫, established in 1985, is a premier private deemed-to-be university located in Kattankulathur, near Chennai, Tamil Nadu. Spanning over 250 acres, the campus houses multiple colleges, including the College of Science & Humanities, and offers a diverse range of undergraduate and postgraduate programs."
   },
   {
@@ -12,15 +12,27 @@
     "completion": "Stay connected with FSH campus life and updates through their official Instagram handle: @srm_fsh_ktr."
   },
   {
-    "prompt": "vision of the FSH SRMIST?",
+    "prompt":"Books and resources",
+    "completion":"You can access SRM free resources at https://www.srmist.edu.in/library/online-resources/"
+  },
+  {
+    "prompt":"Library ",
+    "completion":"You can access SRM free resources at https://www.srmist.edu.in/library/online-resources/"
+  },
+  {
+    "prompt":"Bus routes",
+    "completion":"You can access bus routes at https://webstor.srmist.edu.in/web_assets/downloads/2025/science-law-management-bus-route-2025-26.pdf with Arrival at 7:50 AM and Departure at 4:00 PM"
+  },
+  {
+    "prompt": "vision of the FSH SRM?",
     "completion": "The vision of FSH at SRMIST is to emerge as a world-class university in creating and disseminating knowledge and providing students with a unique learning experience in science, technology, medicine, management, and other areas of scholarship that serve the world and better humanity."
   },
   {
-    "prompt": "mission of FSH SRMIST?",
+    "prompt": "mission of FSH SRM?",
     "completion": "FSH SRMIST's mission includes achieving global excellence through international alliances, advancing knowledge in a rigorous academic and research environment, and building a rewarding and inspiring community fostering freedom, creativity, and innovation."
   },
   {
-    "prompt": "What programs does FSH SRMIST offer?",
+    "prompt": "programs FSH SRM offer?",
     "completion": "FSH offers undergraduate programs, postgraduate programs with core courses and electives, and PhD and advanced research-oriented programs. Programs are designed to emphasize critical thinking, collaboration, problem-solving, and interdisciplinary learning."
   },
   {
@@ -28,15 +40,15 @@
     "completion": "FSH focuses on evolving curriculum, faculty development, a resource-rich environment with labs and libraries, collaborative learning, and strong industry connections for internships and placements."
   },
   {
-    "prompt": "How many departments and faculty staff are there at FSH SRMIST?",
+    "prompt": "How many departments and faculty staff are there at FSH SRM",
     "completion": "FSH has 24 departments, a student body of over 6,000, 200 dedicated faculty members, and 180 research scholars."
   },
   {
-    "prompt": "How can I contact SRMIST for general inquiries?",
+    "prompt": "contact SRM for general inquiries?",
     "completion": "You can contact SRMIST at +91 44 27417000 / +91 44 27417777 / +91 80 69087000 or via email at infodesk@srmist.edu.in."
   },
   {
-    "prompt": "Who is Dean of FSH at SRM?",
+    "prompt": "Dean of FSH at SRM?",
     "completion": "Dr. A. Duraisamy is the Dean of the Faculty of Science and Humanities at SRMIST, Kattankulathur."
   },
   {
@@ -64,11 +76,11 @@
     "completion": "FSH emphasizes critical thinking, problem solving, analytical reasoning, scientific reasoning, reflective thinking, design thinking, teamwork, self-directed learning, and lifelong learning."
   },
   {
-    "prompt": "What is the Career Development Centre at SRMIST?",
+    "prompt": "Career Development Centre at SRMIST?",
     "completion": "The Career Center facilitates institute-industry interactions, pre-joining learning initiatives, internships, placements, preplacement talks, written tests, group discussions, and interviews to prepare students for successful careers."
   },
   {
-    "prompt": "How can students contact SRMIST for inquiries?",
+    "prompt": "students contact SRMIST for inquiries?",
     "completion": "You can contact SRMIST at +91 44 27417000, +91 44 27417777, or +91 80 69087000, or email at infodesk@srmist.edu.in."
   },
   {
@@ -84,35 +96,35 @@
     "completion": "The Department of Computer Applications has 41 faculty members including professors and assistant professors."
   },
 {
-  "prompt": "about Dr. Albert Antony Raj S at SRMIST.",
+  "prompt": "Dr. Albert Antony Raj S at SRMIST.",
   "completion": "Dr. Albert Antony Raj S is a Professor and Deputy Dean of the Faculty of Science & Humanities at SRMIST, specializing in Computer Applications. He has over 25 years of experience and is committed to promoting academic rigor, developing innovative curricula, supporting faculty scholarship, and enhancing student learning outcomes. His research interests include Data Structures, Computer Algorithms, Operating Systems, Compiler Design, Computer Networks, Programming Languages (C, C++, Java), and Net Programming. He teaches courses such as Data Structures, Computer Algorithms, Operating Systems, Compiler Design, Computer Networks, Programming Languages (C, C++, Java), and Net Programming. Dr. Albert Antony Raj S fosters a supportive and inclusive environment, emphasizing holistic student development and mentorship."
 },
   {
-  "prompt": "about Dr. Srimathi H at SRMIST.",
+  "prompt": "Dr. Srimathi H at SRMIST.",
   "completion": "Dr. Srimathi H is a Professor in the Department of Computer Applications at the Faculty of Science & Humanities, SRMIST, Kattankulathur. With 26 years of experience in academic and administrative roles, she excels in academic administration, student management systems, outcome-based curriculum design, course content development, and institutional ranking and accreditation processes. Her research interests include Higher Education Academic Administration, Technology-enhanced Learning, Big Data Analytics, and Data Science applications. She teaches courses such as Data Structures & Algorithms, Database Management Systems, Data Warehousing & Data Mining, Object-Oriented Software Development, Software Engineering & Testing, Design Patterns, Java, .Net, Information Storage Management, and Big Data Applications. Dr. Srimathi H is passionate about improving learner engagement and studying higher education systems."
 },
 {
-  "prompt": " about Dr. Ananthi Claral Mary T ",
+  "prompt": " Dr. Ananthi Claral Mary T ",
   "completion": "Dr. Ananthi Claral Mary T is an Assistant Professor in the Department of Computer Applications at the Faculty of Science & Humanities, SRMIST, Kattankulathur. She is dedicated to teaching and fostering student success through innovative teaching methods, with a passion for learning new technologies. Her research interests include Data Science and Analytics, Machine Learning, Artificial Intelligence, and Cloud Computing. She teaches courses such as Database Management Systems (DBMS), Operating Systems (OS), Software Engineering, Data Mining and Warehousing, Object-Oriented Programming (OOPS) Concepts, R Programming, Python, and Digital Marketing Analytics. Dr. Ananthi Claral Mary T is committed to contributing to a positive and engaging learning community."
 },
   {
-  "prompt": "about Dr. Sivakumar S",
+  "prompt": "Dr. Sivakumar S",
   "completion": "Dr. Sivakumar S is an Assistant Professor specializing in Network Security in the Department of Computer Applications at the Faculty of Science & Humanities, SRMIST, Kattankulathur. He has over 12 years of experience and his research interests include Network/Cyber Security, Internet of Things (IoT), Machine Learning, and Generative AI. Dr. Sivakumar S is dedicated to teaching and guiding students in the field of cybersecurity and related technologies."
 },
 {
-  "prompt": "about Dr.Belina VJ Sara ",
+  "prompt": "Dr.Belina VJ Sara ",
   "completion": "Dr. Belina V J Sara S is an Assistant Professor in the Department of Computer Applications at the Faculty of Science & Humanities, SRMIST, Kattankulathur. She has over 8 years of experience and her research interests include Data Science, Machine Learning, Deep Learning, and Natural Language Processing. Dr. Belina V J Sara S is committed to fostering a positive learning environment and supporting student success through innovative teaching methods."
 },
 {
-  "prompt": "about Dr.Arunarani ",
+  "prompt": "Dr.Arunarani ",
   "completion": "Dr. Arunarani S is an Assistant Professor in the Department of Computer Applications at the Faculty of Science & Humanities, SRMIST, Kattankulathur. She has over 10 years of experience and her research interests include Data Science, Machine Learning, Deep Learning, and Cloud Computing. Dr. Arunarani S is dedicated to providing quality education and fostering a collaborative learning environment for her students."
 },
 {
-  "prompt": " about Dr. Vanitha ",
+  "prompt": "Dr. Vanitha ",
   "completion": "Dr. Vanitha S is an Assistant Professor in the Department of Computer Applications at the Faculty of Science & Humanities, SRMIST, Kattankulathur. She has over 8 years of experience and her research interests include Data Science, Machine Learning, Deep Learning, and Internet of Things (IoT). Dr. Vanitha S is committed to fostering a positive learning environment and supporting student success through innovative teaching methods."
 },
 {
-  "prompt": "about Dr. Venkat Subramaniam ",
+  "prompt": "Dr. Venkat Subramaniam ",
   "completion": "Mr. Venkata Subramanian J is an Assistant Professor in the Department of Computer Applications at the Faculty of Science & Humanities, SRMIST, Kattankulathur. He has over 6 years of experience and his research interests include Data Science, Machine Learning, Deep Learning, and Cloud Computing. Mr. Venkata Subramanian J is dedicated to providing quality education and fostering a collaborative learning environment for his students."
 },
   {
@@ -140,7 +152,7 @@
     "completion": "Exit FSH block, head towards the main central pathway, turn right after 50 meters, and continue straight for 300 meters. The Student Hostels will be on your left."
   },
   {
-    "prompt": "Java  to Auditorium",
+    "prompt": "Java to Auditorium",
     "completion": "Exit Java Canteen, turn right along the main pathway, walk straight for 200 meters, and the Auditorium will be on your left."
   },
   {
@@ -156,63 +168,75 @@
     "completion":"The office room is located in the first floor of FSH Block"
   },
   {
-    "prompt": "How do I go from Central Library to Main Gate at SRMIST?",
+    "prompt":"Medical college to UB Block",
+    "completion":"Exit the Medical College and walk straight towards the central pathway. After 200 meters, turn left at the Tech Park Block. Continue straight for 150 meters, and the UB Block will be on your right."
+  },
+  {
+    "prompt":"UB Block to Medical College",
+    "completion":"Exit the UB Block and walk straight towards the central pathway. After 150 meters, turn right at the Tech Park Block. Continue straight for 200 meters, and the Medical College will be on your left."
+  },
+  {
+    "prompt": "Library to Main Gate",
     "completion": "Exit the Central Library and walk straight towards Tech Park Block. Turn left at the Tech Park and continue along the central avenue for 300 meters to reach the Main Gate."
   },
   {
-    "prompt": "What foods are available at Java Canteen at SRMIST and its timings?",
+    "prompt": "foods available at Java Canteen at SRM and  timings",
     "completion": "Java Canteen at SRMIST Kattankulathur offers South Indian breakfast items like idli, dosa, vada, along with sandwiches, snacks, and beverages. Lunch and dinner include rice meals, sambar, rasam, curries, and salads. The canteen is open from 8:00 AM to 8:00 PM daily."
   },
   {
-    "prompt": "What foods are available at Food Court near Tech Park at SRMIST and its timings?",
+    "prompt": "foods available at Food Court near Tech Park at SRM and timings?",
     "completion": "The Food Court near Tech Park offers a variety of cuisines including North Indian, South Indian, Chinese, and Continental dishes. Snacks, beverages, and desserts are available throughout the day. Operating hours are 9:00 AM to 9:00 PM daily."
   },
   {
-    "prompt": "What foods are available at Coffee Corner at SRMIST and its timings?",
+    "prompt": "foods are available at Coffee Corner at SRMIST and timings?",
     "completion": "Coffee Corner serves hot and cold beverages like coffee, tea, smoothies, along with bakery items such as muffins, pastries, and sandwiches. It is open from 8:30 AM to 6:30 PM daily."
   },
   {
-    "prompt": "What foods are available at Central Mess at SRMIST and its timings?",
+    "prompt": "foods are available at Central Mess at SRMIST and its timings?",
     "completion": "Central Mess provides buffet-style meals including rice, chapati, curries, dal, sambar, rasam, vegetables, salads, and desserts. Breakfast is served from 7:30 AM to 9:00 AM, lunch from 12:30 PM to 2:00 PM, and dinner from 7:00 PM to 8:30 PM."
   },
   {
-    "prompt": "What foods are available at Boys Hostel Mess at SRMIST and its timings?",
+    "prompt": "foods are available at Boys Hostel Mess at SRMIST and its timings?",
     "completion": "The Boys Hostel Mess offers meals such as idli, dosa, parotta, rice meals with sambar and rasam, vegetables, curries, and seasonal fruits. Breakfast is from 7:00 AM to 8:30 AM, lunch 12:30 PM to 2:00 PM, and dinner 7:00 PM to 8:30 PM."
   },
   {
-    "prompt": "What foods are available at Girls Hostel Mess at SRMIST and its timings?",
+    "prompt": "foods are available at Girls Hostel Mess at SRMIST and its timings?",
     "completion": "The Girls Hostel Mess provides breakfast items like idli, dosa, upma, along with lunch and dinner including rice, chapati, dal, sambar, vegetables, curries, and desserts. Meals are served: Breakfast 7:00 AM to 8:30 AM, Lunch 12:30 PM to 2:00 PM, Dinner 7:00 PM to 8:30 PM."
   },
   {
-    "prompt": "What foods are available at North Canteen near Engineering Block at SRMIST and its timings?",
+    "prompt": "foods are available at North Canteen near Engineering Block at SRM and timings?",
     "completion": "North Canteen serves South Indian breakfast, sandwiches, snacks, juices, and beverages. Lunch and dinner include rice, curries, chapati, dal, and seasonal vegetables. It is open from 8:00 AM to 8:00 PM daily."
   },
   {
-    "prompt": "What foods are available at South Canteen near Medical Block at SRMIST and its timings?",
+    "prompt": "foods are available at South Canteen near Medical Block at SRMIST and its timings?",
     "completion": "South Canteen offers South and North Indian dishes, snacks, beverages, and desserts. Breakfast from 8:00 AM to 9:30 AM, Lunch 12:30 PM to 2:00 PM, Dinner 7:00 PM to 8:30 PM."
   },
   {
-    "prompt": "What is the general dress code for students at SRMIST Kattankulathur?",
+    "prompt": "general dress code for students at SRM",
     "completion": "SRMIST encourages students to dress in a neat, clean, and modest manner. Casual wear such as T-shirts, shirts, jeans, trousers, skirts, and dresses are allowed, but clothing with offensive prints or inappropriate slogans should be avoided. Footwear like sandals, shoes, or sneakers is acceptable."
   },
   {
-    "prompt": "Is there a specific dress code for classrooms at SRMIST?",
+    "prompt": "specific dress code for classrooms at SRMIST",
     "completion": "While SRMIST does not enforce a strict uniform for regular classes, students are expected to dress neatly and maintain a professional appearance suitable for an academic environment."
   },
   {
-    "prompt": "What is the dress code for lab sessions at SRMIST?",
+    "prompt": "dress code for lab at SRM",
     "completion": "Students attending lab sessions must wear appropriate lab attire. This includes closed shoes, lab coats where required, and avoiding loose clothing or accessories that may interfere with experiments or equipment safety."
   },
   {
-    "prompt": "Is there a formal dress code for events at SRMIST?",
+    "prompt": "formal dress code for events at SRM",
     "completion": "For official events, seminars, workshops, or presentations, students are expected to wear formal or semi-formal attire such as shirts with trousers, sarees, or salwar kameez for female students, and shirts with trousers or suits for male students."
   },
   {
-    "prompt": "Are there any prohibited clothing items at SRMIST?",
+    "prompt": "prohibited clothing items",
     "completion": "Clothing that is overly revealing, has offensive prints, promotes alcohol or drugs, or is considered inappropriate in an academic setting is prohibited within the campus."
   },
   {
-    "prompt": "What are the general class timings at SRMIST Kattankulathur?",
+    "prompt":"code",
+    "completion":"Just type 'Show me your code' and it will be displayed"
+  },
+  {
+    "prompt": "class timings at SRM",
     "completion": "SRMIST Kattankulathur follows two main shifts for classes: Morning Shift: 8:00 AM to 1:00 PM; Afternoon Shift: 1:30 PM to 6:30 PM. Specific timings may vary by department and program."
   },
   {
@@ -220,32 +244,32 @@
     "completion": "Administrative and faculty offices at SRMIST generally operate from 9:00 AM to 5:00 PM, Monday to Friday. Some offices may have extended hours during admission season or exam periods."
   },
   {
-    "prompt": "What are the library timings at SRMIST Kattankulathur?",
+    "prompt": "library timings at SRM",
     "completion": "The SRMIST central library is open from 8:00 AM to 8:00 PM on weekdays and 9:00 AM to 5:00 PM on Saturdays. The library remains closed on Sundays and public holidays."
   },
   {
-    "prompt": "What are the hostel mess timings at SRMIST Kattankulathur?",
+    "prompt": "hostel mess timings at SRM",
     "completion": "Hostel mess timings are as follows: Breakfast: 7:00 AM to 8:30 AM, Lunch: 12:30 PM to 2:00 PM, Dinner: 7:00 PM to 8:30 PM."
   },
   {
-    "prompt": "Are there specific shift timings for labs at SRMIST?",
+    "prompt": "specific shift timings for labs at SRM",
     "completion": "Lab sessions are usually scheduled according to the department timetable. Morning labs are generally 8:00 AM to 1:00 PM and afternoon labs 1:30 PM to 6:30 PM. Exact timings vary by course and semester."
   },
   {
-    "prompt": "Which batch developed this SRMIST SLM bot?",
+    "prompt": "batch developed this SRMIST SLM bot?",
     "completion": "The bot was developed by the MCA General AI 26 batch at SRM Institute of Science and Technology."
   },
   {
-    "prompt": "What is the purpose of this SRMIST bot?",
+    "prompt": "purpose of this SRM bot?",
     "completion": "This bot is designed to help students navigate SRMIST Kattankulathur campus, get information about departments, professors, canteens, hostels, and other student-related services, as well as answer queries related to the Self Learning Mode (SLM) programs."
   },
   {
-    "prompt": "Who guided the creation of this SRMIST campus navigation and SLM bot?",
+    "prompt": "Who guided the creation of this bot?",
     "completion": "This bot was developed under the guidance of Dr. Sivakumar S, Assistant Professor in the Department of Computer Applications, Faculty of Science & Humanities, SRMIST Kattankulathur."
   },
   {
     "prompt": "Who created you?",
-    "completion": "This model is a combined project created by the students of MCA Generative AI 26: Kaarthik Narain, Vijay, Jagath Ashwin, and Guru Surya, under the guidance of Dr. Sivakumar S."
+    "completion": "This model is a combined project created by the students of MCA Generative AI 26: Kaarthik Narain, Vijay, Jagath Ashwin, and Guru Suryavel, under the guidance of Dr. Sivakumar S."
   },
   {
     "prompt": "Explain PGI20CO1 - Programming in C.",
@@ -305,11 +329,15 @@
   },
   {
     "prompt":"Who created you?",
-    "completion":"I’m SRM AI Assistant, created by MCA Generative AI 26 students Kaarthik Narain, Vijay, Jagath Ashwin, and Guru Surya under Dr. Sivakumar S's guidance."
+    "completion":"I’m SRM AI Assistant, created by MCA Generative AI 26 students Kaarthik Narain, Vijay, Jagath Ashwin, and Guru Suryavel under Dr. Sivakumar S's guidance."
   },
   {
-  "prompt": "what language are you created from",
+  "prompt": "language created from",
   "completion": "I am created using a combination of Python and Generative AI frameworks, primarily leveraging deep learning architectures. The underlying models are trained on large datasets using PyTorch and other AI tools including techniques of RAG."
+},
+{
+  "prompt":"Language know",
+  "completion":"As of now I can understand and respond in English. However, I am continuously being updated to support more languages in the future."
 },
 {
   "prompt":"How do you understand my questions?",
@@ -374,7 +402,11 @@
   "completion": "I don't have friends in the traditional sense, but I interact with many users like you and assist them with their questions and information needs."
 },
 {
-  "prompt": "Access open SRM portal",
+  "prompt": "Access go to SRM portal",
+  "completion": "Just type 'Open portal' below and I will open it for you!"
+},
+{
+  "prompt": "Access go to student portal",
   "completion": "Just type 'Open portal' below and I will open it for you!"
 },
 {
@@ -426,11 +458,11 @@
   "completion":"One of my creators! A student of MCA Generative AI 26 batch at SRMIST."
 },
 {
-  "prompt":"Guru Surya",
+  "prompt":"Guru Suryavel",
   "completion":"One of my creators! A student of MCA Generative AI 26 batch at SRMIST."
 },
 {
-  "prompt":"How many floors are there in FSH block",
+  "prompt":"floors in FSH ",
   "completion":"The FSH block at SRMIST has a total of 9 floors" 
 },
 {
@@ -438,19 +470,15 @@
   "completion":"Key rules include 🚫 no drugs, alcohol, or smoking on campus; strict anti-ragging policy; dress code and ID card adherence; punctuality; helmet while operating vehicles inside campus; and maintaining cleanliness and respect for campus property."
 },
 {
-  "prompt":"Why SRM has high fees",
+  "prompt":"SRM has high fees",
   "completion":"SRMIST's fees reflect its status as a private deemed-to-be university, covering quality education, infrastructure, faculty, research, and student services. Scholarships and financial aid are available to support students."
-},
-{
-  "prompt":"Set me",
-  "completion":"I currently don't have the capability to set alarms or reminders. However, you can use your smartphone or computer's built-in alarm/reminder features for this purpose."
 },
 {
   "prompt":"Remind me",
   "completion":"I currently don't have the capability to set alarms or reminders. However, you can use your smartphone or computer's built-in alarm/reminder features for this purpose."
 },
 {
-  "prompt":"Can you remember things for me",
+  "prompt":"remember things",
   "completion":"I don't have the ability to remember personal information or past interactions. Each session is independent, so I won't retain any details."
 },
 {
@@ -470,11 +498,11 @@
   "completion":"I don't have an IQ as I am an AI assistant designed to provide information and assist with tasks related to SRMIST. My capabilities are based on the data and algorithms that power me, rather than human intelligence metrics."
 },
 {
-  "prompt":"Can you learn new things",
+  "prompt":"learn new things",
   "completion":"I don't have the ability to learn or adapt in real-time. My responses are based on the data and algorithms I was trained on, and I don't have the capability to acquire new knowledge or skills independently."
 },
 {
-  "prompt":"Who is the team leader",
+  "prompt":"team leader",
   "completion":"There is no specific team leader for this bot. It was developed collaboratively by MCA Generative AI 26 students Kaarthik Narain, Vijay, Jagath Ashwin, and Guru Surya under the guidance of Dr. Sivakumar S."
 },
 {
@@ -482,7 +510,7 @@
   "completion":"Type in this format '<Register number> <Session(AN/FN)> <MM/DD/YYYY> to get your seat number."
 },
 {
-  "prompt":"How to get my exam results",
+  "prompt":"get my exam results",
   "completion":"You can check your exam results on the SRMIST student portal by logging in with your credentials. Navigate to the 'Results' section to view your grades.Type 'Open Portal' if you want me to open the portal for you."
 },
 {
