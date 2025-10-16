@@ -8,28 +8,26 @@
 </head>
 <body>
 
-
 <div class="mouse-effect"></div>
 
+<!-- Terms & Conditions Modal -->
 <div id="tcModal" class="modal">
   <div class="modal-content">
     <h2>Terms & Conditions</h2>
     <div class="tc-text">
       <p>Welcome to our College Help Bot! By using this website, you agree to the following terms:</p>
       <ul>
-        <li>All content provided is for educational purposes only.</li>
-        <li>The AI may not always provide accurate answers; verify from your course material.</li>
-        <li>Respect privacy and do not upload sensitive personal information.</li>
-        <li>Use responsibly and do not misuse the service.</li>
-        <li>We reserve the right to update these terms at any time. Continued use means you accept changes.</li>
-        <li>We collect data from feedbacks for the training of the AI model. No personal data is stored.</li>
-        <li>By clicking "I Agree", you acknowledge that you have read and understood these terms.</li>
+        <li>All content provided is intended for educational purposes only.</li>
+        <li>While the AI strives for accuracy, it may not always provide correct or complete information.</li>
+        <li>Users must respect privacy and refrain from uploading sensitive or personal information.</li>
+        <li>The service should be used responsibly and must not be misused in any way.</li>
+        <li>These Terms and Conditions may be updated from time to time; continued use of the service constitutes acceptance of any changes.</li>
+        <li>No personal data is stored by the service; however, feedback may be utilized to improve and train the AI.</li>
       </ul>
     </div>
     <button id="acceptBtn">I Agree</button>
   </div>
 </div>
-
 
 <header class="srm-header">
   <div class="srm-container">
@@ -41,92 +39,116 @@
   </div>
 </header>
 
-<!-- Floating Portal Button -->
+<!-- Floating Buttons -->
 <button id="portalBtn" class="shortcut-btn">🎓 Portal</button>
+<button id="backBtn" class="shortcut-btn" style="position:fixed;right:200px;top:19.6px;z-index: 10000;">Meet the Team</button>
 
+<script>
+document.getElementById("backBtn").addEventListener("click", () => {
+    window.location.href = "/team"; // <-- Flask route for team page
+});
+</script>
 
+<canvas id="matrixCanvas"></canvas>
+
+<div id="rightPanel">
+  <h3>Campus News</h3>
+  <div id="alertsSidebar" class="news-container"></div>
+</div>
+
+<!-- Side Text -->
 <div class="side-text">
   <h2>SRM AI Assistant</h2>
   <p>Your smart learning buddy</p>
   <p class="disclaimer">⚠️ Note: AI may make mistakes and provide inaccurate responses.</p>
+  <p class="disclaimer">It might need a little more clarity. Please rephrase or add details to help it understand.</p>
 </div>
 
-
-  <div id="exam-timetable" style="display:none; margin-top:20px;">
-    <h3>📅 Timetable</h3>
-    <table id="timetable-table" border="1" style="width:100%; border-collapse: collapse;">
-        <thead>
-            <tr>
-                <th>Subject</th>
-                <th>Code</th>
-                <th>Department</th>
-                <th>Year</th>
-                <th>Date</th>
-                <th>Time</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</div>
-
-
+<!-- Chat Wrapper -->
 <div class="chat-wrapper">
     <div class="header">
       <h1>SRM AI Assistant</h1>
     </div>
-
     <div class="chat-box" id="chat-box"></div>
-
     <div class="input-area">
-      <input id="user-input" type="text" placeholder="Ask anything about SRM..." autofocus>
+      <input id="user-input" type="text" placeholder="Ask anything about SRM..." autofocus autocomplete="off">
       <button id="send-btn">➤</button>
     </div>
 </div>
 
-<!-- Admin Upload Panel -->
+
+<!-- Admin Panel -->
 <section id="adminPanel" class="admin-panel">
   <h2>Admin Upload</h2>
-
-  <!-- Password input -->
   <div class="password-container">
     <input type="password" id="adminPassword" placeholder="Enter Admin Password">
     <button id="verifyPasswordBtn">Verify 🔒</button>
   </div>
   <p id="passwordStatus" class="status-text"></p>
 
-  <!-- Timetable upload -->
-<div id="timetableUploadDiv" class="upload-section" style="display:none;">
-  <div class="file-upload">
-    <label for="timetableFile" class="custom-file-label">📂 Choose Timetable File</label>
-    <input type="file" id="timetableFile" accept=".xlsx">
+  <!-- Timetable Upload -->
+  <div id="timetableUploadDiv" class="upload-section" style="display:none;">
+    <div class="file-upload">
+      <label for="timetableFile" class="custom-file-label">📂 Choose Timetable File</label>
+      <input type="file" id="timetableFile" accept=".xlsx">
+    </div>
+    <p class="file-name" id="timetableFileName">No file chosen</p>
+    <button id="uploadTimetableBtn">Upload Timetable 📅</button>
+    <p id="timetableStatus" class="status-text"></p>
   </div>
-  <p class="file-name" id="timetableFileName">No file chosen</p>
 
-  <button id="uploadTimetableBtn">Upload Timetable 📅</button>
-  <p id="timetableStatus" class="status-text"></p>
-</div>
-
-
-  <!-- Seat upload -->
-<div id="seatUploadDiv" class="upload-section" style="display:none;">
-  <div class="file-upload">
-    <label for="seatFile" class="custom-file-label">🪑 Choose Seat File</label>
-    <input type="file" id="seatFile" accept=".xlsx">
+  <!-- Seat Upload -->
+  <div id="seatUploadDiv" class="upload-section" style="display:none;">
+    <div class="file-upload">
+      <label for="seatFile" class="custom-file-label">🪑 Choose Seat File</label>
+      <input type="file" id="seatFile" accept=".xlsx">
+    </div>
+    <p class="file-name" id="seatFileName">No file chosen</p>
+    <button id="uploadSeatBtn">Upload Seat Numbers 🎟️</button>
+    <p id="seatStatus" class="status-text"></p>
   </div>
-  <p class="file-name" id="seatFileName">No file chosen</p>
 
-  <button id="uploadSeatBtn">Upload Seat Numbers 🎟️</button>
-  <p id="seatStatus" class="status-text"></p>
-</div>
-<!-- Clear Data Buttons -->
-<div id="clearDataDiv" class="upload-section" style="display:none; margin-top:20px;">
-  <h3>⚠️ Clear Database</h3>
-  <button onclick="clearData('timetable')">Clear Timetable Data 🗑️</button>
-  <button onclick="clearData('seats')">Clear Seat Data 🗑️</button>
-  <p id="clearStatus" class="status-text"></p>
+  <!-- Clear Data -->
+  <div id="clearDataDiv" class="upload-section" style="display:none; margin-top:20px;">
+    <h3>⚠️ Clear Database</h3>
+    <button onclick="clearData('timetable')">Clear Timetable Data 🗑️</button>
+    <button onclick="clearData('seats')">Clear Seat Data 🗑️</button>
+    <p id="clearStatus" class="status-text"></p>
+  </div>
+
+<div id="newsUploadDiv" style="display:none">
+  <h3>Campus News Management</h3>
+
+  <div class="news-flex-container">
+
+    <!-- Add News Column -->
+    <div class="news-add-column">
+      <div class="news-input-row">
+        <input type="text" id="newsTitle" placeholder="Title">
+        <textarea id="newsMessage" placeholder="Message"></textarea>
+      </div>
+      <input type="date" id="newsDate">
+      <label>
+        <input type="checkbox" id="newsUrgent"> Mark as urgent
+      </label>
+      <button id="addNewsBtn">Add News 📰</button>
+      <p id="newsStatus"></p>
+    </div>
+
+    <!-- Delete News Column -->
+    <div class="news-delete-column">
+      <h4>Delete Existing News</h4>
+      <select id="delete-news-select">
+        <option value="">-- Select News to Delete --</option>
+      </select>
+      <button id="delete-news-btn">Delete Selected</button>
+    </div>
+
+  </div>
 </div>
 </section>
-  <script src="{{ url_for('static', filename='script.js') }}"></script>
 
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script src="{{ url_for('static', filename='announcement.js') }}"></script>
 </body>
 </html>
