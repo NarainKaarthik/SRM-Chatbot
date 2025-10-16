@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Team</title>
+<style>
+/* ===== Body ===== */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 50px 30px;
+  background: #0a0700;
+  color: #fafafa;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ===== Mouse Glow ===== */
+.mouse-effect {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  background: transparent;
+  transition: background 0.05s ease;
+}
+
+/* ===== Header ===== */
+.header-logo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  z-index: 10;
+  position: relative;
+}
+
+.logo-text {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.header-logo img {
+  width: 120px;
+  height: auto;
+}
+
+.srm-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+  align-items: flex-start; /* <-- add this */
+  text-align: left;        /* <-- optional but ensures left text alignment */
+}
+
+
+.srm-text h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.srm-text p {
+  font-size: 1rem;
+  margin: 0;
+  opacity: 0.85;
+}
+
+/* ===== Back Button ===== */
+#backBtn {
+  text-decoration: none;
+  padding: 12px 25px;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #6d01fa, #f200cd);
+  color: #f2e8cf;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Hover animation */
+#backBtn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, #ff0099, #7700ff, #ffbb00);
+  color: #fff;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+/* Shine effect */
+#backBtn::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255,255,255,0.2);
+  transform: rotate(45deg) translate(-100%, -100%);
+  transition: all 0.5s ease;
+}
+
+#backBtn:hover::after {
+  transform: rotate(45deg) translate(100%, 100%);
+}
+
+/* ===== Section Title ===== */
+h1 {
+  text-align: center;
+  margin: 50px 0 40px 0; /* adds extra spacing from top */
+  font-size: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== Team Container ===== */
+.team-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;  
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 30px;   
+  padding-bottom: 50px; 
+}
+
+/* ===== Body ===== */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 40px 30px 60px 30px; 
+  background: #0a0700;
+  color: #fafafa;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ===== Team Member Card ===== */
+.member {
+  position: relative;
+  border-radius: 12px;
+  padding: 20px;
+  width: 180px;
+  background: #000;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  transform-style: preserve-3d;  /* Enable 3D transforms */
+  z-index: 5;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Member Image */
+.member img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  transition: none;
+}
+
+/* Animated Border */
+.member::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: calc(100% + 4px);
+  height: calc(100% + 4px);
+  border: 2px solid transparent;
+  border-image: linear-gradient(90deg, #6108fb, #7c3aed, #ff00e6) 1;
+  animation: borderMove 3s linear infinite;
+  border-radius: 14px;
+  pointer-events: none;
+  transition: border-image 0.3s ease;
+}
+
+/* Hover Effects */
+.member:hover {
+  transform: translateY(-5px);
+  background: linear-gradient(135deg, #6a0099, #3a0088, #c17b00); /* Darker gradient */
+  box-shadow: 0 10px 30px rgba(255, 175, 65, 0.35),
+              0 8px 25px rgba(124, 58, 237, 0.3);
+  color: #fff;
+  transition: all 0.4s ease;
+}
+
+/* Hover Border (slightly richer tone) */
+.member:hover::before {
+  border-image: linear-gradient(45deg, #5b00d4, #d1007a, #e69500) 1;
+}
+
+/* Hover Shine Effect */
+.member::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: rgba(255,255,255,0.2);
+  transform: rotate(45deg) translate(-100%, -100%);
+  transition: all 0.5s ease;
+  pointer-events: none;
+  border-radius: 12px;
+}
+
+.member:hover::after {
+  transform: rotate(45deg) translate(100%, 100%);
+}
+.member h3, 
+.member p {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(90deg, #ff00ff, #00ffff, #ff9900, #ff00ff);
+  background-size: 300%;
+  background-clip: text;              /* ✅ Standard property */
+  -webkit-background-clip: text;      /* ✅ For Chrome, Safari */
+  -webkit-text-fill-color: transparent;
+  animation: glowText 4s linear infinite;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+.member.expanded {
+  transform: scale(1.2);      /* grow card */
+  z-index: 10;                /* bring forward */
+  box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+}
+
+/* Info paragraph (hidden by default, but can expand smoothly) */
+.member .info {
+  max-height: 0;           /* hidden */
+  opacity: 0;              /* invisible */
+  overflow: hidden;        /* hide overflow */
+  margin-top: 0;           /* no extra space when hidden */
+  font-size: 0.9rem;
+  color: #ddd;
+  text-align: center;
+  transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.5s ease;
+}
+
+.member.expanded .info {
+  max-height: 200px;       /* enough to show full text */
+  opacity: 1;
+  margin-top: 10px;        /* spacing appears smoothly */
+}
+
+
+/* Animation for the moving glow effect */
+@keyframes glowText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+/* Border animation */
+@keyframes borderMove {
+  0% { border-image-source: linear-gradient(0deg, #e600fa, #7c3aed, #fbaf41); }
+  25% { border-image-source: linear-gradient(90deg, #e600fa, #7c3aed, #fbaf41); }
+  50% { border-image-source: linear-gradient(180deg, #e600fa, #7c3aed, #fbaf41); }
+  75% { border-image-source: linear-gradient(270deg, #e600fa, #7c3aed, #fbaf41); }
+  100% { border-image-source: linear-gradient(360deg, #e600fa, #7c3aed, #fbaf41); }
+}
+
+/* Energy Burst Circle */
+.energy-burst {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  pointer-events: none;
+  transform: scale(0);
+  animation: burst 0.6s ease-out forwards;
+  z-index: 100;
+  box-shadow: 0 0 15px 5px rgba(255,255,255,0.5),
+              0 0 30px 10px rgba(255,0,255,0.4);
+}
+
+@keyframes burst {
+  0% { transform: scale(0); opacity: 1; }
+  50% { transform: scale(2); opacity: 0.7; }
+  100% { transform: scale(4); opacity: 0; }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Mouse Glow -->
+<div class="mouse-effect"></div>
+
+<div id="floating-images"></div>
+
+<style>
+#floating-images {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 9999;
+}
+
+.floating-img {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  transform-origin: center;
+}
+
+.title-container {
+  text-align: center;
+  margin: 50px 0;
+}
+
+#team-title {
+  font-size: 3rem;                 
+  font-weight: bold;
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 3px solid #fff;     
+  background: linear-gradient(90deg, #ff00ff, #00ffff, #ff9900, #ff00ff);
+  background-size: 300%;
+  background-clip: text;          
+  -webkit-background-clip: text;   
+  -webkit-text-fill-color: transparent;
+  animation: glowText 4s linear infinite, blinkCursor 1s step-end infinite;
+}
+
+
+/* Cursor blink animation */
+@keyframes blinkCursor {
+  0%, 50% { border-color: #fff; }
+  51%, 100% { border-color: transparent; }
+}
+
+/* Gradient move animation */
+@keyframes glowText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+</style>
+
+<script>
+const container = document.getElementById("floating-images");
+const img = document.createElement("img");
+img.src = "{{ url_for('static', filename='srm_logo1.png') }}"; 
+img.classList.add("floating-img");
+container.appendChild(img);
+
+// Starting values
+let startX = -50;            // start offscreen left
+let amplitude = 50;           // zigzag amplitude
+let frequency = 0.02;         // wave frequency
+let speed = 2;                // horizontal speed
+let angle = 0;
+
+function animate(time) {
+  // Horizontal movement
+  startX += speed;
+  if (startX > window.innerWidth + 50) startX = -50; // reset to left
+
+  // Vertical movement using sine wave
+  let y = window.innerHeight / 2 + amplitude * Math.sin(startX * frequency);
+
+  // Rotation
+  angle += 3; // adjust rotation speed
+
+  img.style.transform = `translate(${startX}px, ${y}px) rotate(${angle}deg)`;
+
+  requestAnimationFrame(animate);
+}
+
+// Start animation
+requestAnimationFrame(animate);
+</script>
+
+
+<!-- Header -->
+<div class="header-logo">
+  <div class="logo-text">
+    <img src="{{ url_for('static', filename='srm_logo1.png') }}" alt="SRM Logo">
+    <div class="srm-text">
+      <h1>SRM</h1>
+      <p>INSTITUTE OF SCIENCE AND TECHNOLOGY</p>
+    </div>
+  </div>
+  <button id="backBtn">← Back to Home</button>
+</div>
+
+<!-- Title -->
+<div class="title-container">
+  <h1 id="team-title"></h1>
+</div>
+
+
+<!-- Team Members -->
+<div class="team-container">
+  <div class="member" data-info="The brain behind the brains. Keeps us from turning AI into a Death Star. 🧠💥">
+    <img src="{{ url_for('static', filename='Sivakumar.png') }}" alt="Mentor">
+    <h3>Dr. Sivakumar</h3>
+    <p>Mentor</p>
+  </div>
+  <div class="member" data-info="Code magician, AI whisperer, occasional genius. Basically, I am Iron… code. 🤖💻"">
+    <img src="{{ url_for('static', filename='Narain.jpeg') }}" alt="Member 1">
+    <h3>Kaarthik Narain</h3>
+    <p>Backend & AI Developer</p>
+  </div>
+  <div class="member" data-info="Designs UIs so sleek, you might just try to touch the screen… twice. 🎨🕶️.">
+    <img src="{{ url_for('static', filename='jagath.jpg') }}" alt="Member 2">
+    <h3>Jagath Aswin B</h3>
+    <p>Frontend Developer</p>
+  </div>
+  <div class="member" data-info="Database overlord. Knows your secrets… and your passwords. 🗄️💀">
+    <img src="{{ url_for('static', filename='Guru.jpeg') }}" alt="Member 3">
+    <h3>Guru Suryavel G</h3>
+    <p>Database Developer</p>
+  </div>
+  <div class="member" data-info="Frontend wizard. If pixels were poker chips, he’d be a billionaire. 🖱️💰">
+    <img src="{{ url_for('static', filename='Vijay.jpeg') }}" alt="Member 4">
+    <h3>Vijay D</h3>
+    <p>Frontend Developer</p>
+  </div>
+</div>
+
+<script>
+// Back button navigation
+document.getElementById("backBtn").addEventListener("click", () => {
+  window.location.href = "/";  // <-- use the Flask route, not index.html file
+});
+
+// Mouse glow effect
+document.addEventListener("mousemove", (e) => {
+  const mouseEffect = document.querySelector(".mouse-effect");
+  mouseEffect.style.background = `radial-gradient(circle at ${e.clientX}px ${e.clientY}px, rgba(113, 15, 251, 0.24), transparent 50%)`;
+});
+
+const members = document.querySelectorAll(".member");
+
+members.forEach(member => {
+  member.addEventListener("click", () => {
+    // Collapse all other members
+    members.forEach(m => {
+      if (m !== member) m.classList.remove("expanded");
+    });
+
+    // Toggle this member
+    member.classList.toggle("expanded");
+
+    // Add info paragraph if not present
+    if (!member.querySelector(".info")) {
+      const info = document.createElement("p");
+      info.classList.add("info");
+      info.textContent = member.getAttribute("data-info") || "No additional info.";
+      member.appendChild(info);
+    }
+  });
+});
+
+members.forEach(member => {
+  member.addEventListener("mousemove", (e) => {
+    const rect = member.getBoundingClientRect();
+    const x = e.clientX - rect.left;  // Mouse X inside card
+    const y = e.clientY - rect.top;   // Mouse Y inside card
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    // Rotate max 15 degrees
+    const rotateX = ((y - centerY) / centerY) * 30;
+    const rotateY = ((x - centerX) / centerX) * 30;
+
+    member.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+  });
+
+  member.addEventListener("mouseleave", () => {
+    member.style.transform = "rotateX(0deg) rotateY(0deg) scale(1)";
+  });
+});
+const title = "Meet the team";
+const titleElement = document.getElementById("team-title");
+let index = 0;
+
+function typeTitle() {
+  if (index < title.length) {
+    titleElement.textContent += title.charAt(index);
+    index++;
+    setTimeout(typeTitle, 150);  // typing speed (ms)
+  }
+}
+
+// Start typing
+typeTitle();
+
+</script>
+
+
+</body>
+</html>
