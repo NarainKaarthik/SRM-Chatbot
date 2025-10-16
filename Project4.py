@@ -370,7 +370,7 @@ def check_seat_from_message(user_message):
 # -------------------------------
 # Authenticate Hugging Face
 # -------------------------------
-login("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")
+login("YOUR_HUGGINGFACE_TOKEN")
 
 # -------------------------------
 # Load JSON dataset for RAG
