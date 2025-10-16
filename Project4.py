@@ -18,6 +18,7 @@ from nltk.corpus import words
 import re
 from rapidfuzz import fuzz
 import sqlite3
+import dateparser
 
 # -------------------------------
 # Gibberish Detection
@@ -85,7 +86,7 @@ def answer_from_timetable(query):
 
     # Identify subject or code
     for _, row in timetable.iterrows():
-        if row["subject"].lower() in q or row["code"].lower() in q:
+        if row["subject"].lower() in q.lower() or row["code"].lower() in q.lower() or q.lower() in row["subject"].lower():
             return (f"{row['subject']} exam for {row['department']} (Year {row['year']}) "
                     f"is on {row['date']} from {row['time']}.")
 
@@ -104,39 +105,149 @@ def answer_from_timetable(query):
 
     return "I couldn’t find that in the timetable."
 
-def check_timetable(user_message):
-    q = user_message.lower()
-    dept_match = re.search(r"(mca gen ai|cse|ece|eee|mech|civil|mba)", q)
-    dept = dept_match.group(0) if dept_match else None
-    year_match = re.search(r"\b(\d)(?:st|nd|rd|th)? year\b", q)
-    year = int(year_match.group(1)) if year_match else None
+# Load embedding model (only once)
+embedder = SentenceTransformer('all-MiniLM-L6-v2')
 
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+import sqlite3
+from datetime import datetime
+import numpy as np
+
+# Load once
+embedder = SentenceTransformer('all-MiniLM-L6-v2')
+
+from rapidfuzz import fuzz
+import re
+from datetime import datetime
+import sqlite3
+
+# Add your acronym mapping here
+SUBJECT_ACRONYMS = {
+    "ooad": "object oriented analysis and design",
+    "ai": "artificial intelligence",
+    "cas": "cognitive analytical skills",
+    "eh": "ethical hacking",
+    "fsd": "full stack development"
+}
+
+from rapidfuzz import fuzz
+import re
+import sqlite3
+from datetime import datetime
+
+# Add your acronym mapping here
+SUBJECT_ACRONYMS = {
+    "ooad": "object oriented analysis and design",
+    "ai": "artificial intelligence",
+    "cas": "cognitive analytical skills",
+    "eh": "ethical hacking",
+    "fsd": "full stack development"
+}
+
+def check_timetable(user_message):
+    """
+    Returns timetable info based on user query.
+    Handles:
+    - Full subject match
+    - Partial/fuzzy match
+    - Acronym mapping
+    - Department + year queries
+    - Department-only queries
+    """
+    q = user_message.lower().strip()
+    
+    # Step 0: Replace acronyms dynamically
+    for acr, full in SUBJECT_ACRONYMS.items():
+        q = re.sub(rf"\b{acr}\b", full, q)
+    
+    # Step 1: Fetch all timetable rows
     conn = sqlite3.connect(DB_FILE)
     c = conn.cursor()
+    c.execute("SELECT department, year, date, time, subject, code FROM timetable")
+    rows = c.fetchall()
+    conn.close()
 
-    # Dept + year → all exams
-    if dept and year:
-        c.execute("SELECT subject, code, date, time FROM timetable WHERE LOWER(department)=? AND year=? ORDER BY date", (dept, year))
-        rows = c.fetchall()
-        conn.close()
-        if rows:
-            result = "\n".join([f"📘 {r[0]} ({r[1]}) — {r[2]} | {r[3]}" for r in rows])
-            return f"Here’s the exam schedule for {dept.upper()} - Year {year}:\n\n{result}"
-        else:
-            return "No timetable found for the provided department and year."
+    # Step 2: Exact subject match
+    for r in rows:
+        if q == r[4].lower():
+            exam_date = datetime.strptime(r[2], "%Y-%m-%d").strftime("%d %b %Y")
+            return f"{r[4]} exam for {r[0]} (Year {r[1]}) is on {exam_date} from {r[3]}."
 
-    # Subject or code search (using LIKE for partial matches)
-    for keyword in re.findall(r"\b\w+\b", q):
-        c.execute("""
-            SELECT department, year, date, time, subject FROM timetable
-            WHERE LOWER(subject) LIKE ? OR LOWER(code) LIKE ?
-        """, (f"%{keyword}%", f"%{keyword}%"))
-        row = c.fetchone()
-        if row:
-            conn.close()
-            from datetime import datetime
-            exam_date = datetime.strptime(row[2], "%Y-%m-%d").strftime("%d %b %Y")  # convert to 13 Oct 2025
-            return f"{row[4]} exam for {row[0]} (Year {row[1]}) is on {exam_date} from {row[3]}."
+    # Step 3: Partial/fuzzy match on subject or code
+    best_score, best_row = 0, None
+    for r in rows:
+        score_subj = fuzz.partial_ratio(q, r[4].lower())
+        score_code = fuzz.partial_ratio(q, r[5].lower())
+        max_score = max(score_subj, score_code)
+        if max_score > best_score:
+            best_score = max_score
+            best_row = r
+
+    if best_score > 70:
+        r = best_row
+        exam_date = datetime.strptime(r[2], "%Y-%m-%d").strftime("%d %b %Y")
+        return f"{r[4]} exam for {r[0]} (Year {r[1]}) is on {exam_date} from {r[3]}."
+
+    # Step 4: Department + year query
+    dept_match = None
+    year_match = None
+    departments = sorted(set([r[0].lower() for r in rows]), key=lambda x: -len(x))
+    
+    # Try exact word match first
+    for d in departments:
+        if f" {d} " in f" {q} ":
+            dept_match = d
+            break
+    # Fallback: partial match
+    if not dept_match:
+        for d in departments:
+            if d in q:
+                dept_match = d
+                break
+
+    # Year extraction
+    ym = re.search(r"\b(\d)(?:st|nd|rd|th)? year\b", q)
+    if ym:
+        year_match = int(ym.group(1))
+
+    # Dept + year
+    if dept_match and year_match:
+        matching_rows = [r for r in rows if r[0].lower() == dept_match and r[1] == year_match]
+        if matching_rows:
+            # Try fuzzy match within filtered rows first
+            best_score, best_row = 0, None
+            for r in matching_rows:
+                score_subj = fuzz.partial_ratio(q, r[4].lower())
+                score_code = fuzz.partial_ratio(q, r[5].lower())
+                max_score = max(score_subj, score_code)
+                if max_score > best_score:
+                    best_score = max_score
+                    best_row = r
+            if best_row and best_score >= 50:
+                r = best_row
+                exam_date = datetime.strptime(r[2], "%Y-%m-%d").strftime("%d %b %Y")
+                return f"{r[4]} exam for {r[0]} (Year {r[1]}) is on {exam_date} from {r[3]}."
+            
+            # Fallback: list all exams for dept+year
+            result = "\n".join([
+                f"📘 {r[4]} ({r[5]}) — {datetime.strptime(r[2], '%Y-%m-%d').strftime('%d %b %Y')} | {r[3]}"
+                for r in matching_rows
+            ])
+            return f"Here’s the exam schedule for {dept_match.upper()} - Year {year_match}:\n\n{result}"
+
+    # Step 5: Department-only (no year)
+    if dept_match:
+        matching_rows = [r for r in rows if dept_match in r[0].lower()]
+        if matching_rows:
+            result = "\n".join([
+                f"📘 {r[4]} ({r[5]}) — {datetime.strptime(r[2], '%Y-%m-%d').strftime('%d %b %Y')} | {r[3]}"
+                for r in matching_rows
+            ])
+            return f"Here’s the exam schedule for {dept_match.upper()}:\n\n{result}"
+
+    return "I couldn’t find that in the timetable. Please check the subject name, code, or department/year."
+
 
 
 # -------------------------------
@@ -157,67 +268,109 @@ def load_seat_data(excel_file):
         print(f"⚠️ Error loading seat data: {e}")
         return pd.DataFrame(columns=["Register number", "Session", "Date", "Seat Number"])
 
-# -------------------------------
-# Seat Checker Function
-# -------------------------------
-def check_seat_from_message(user_message):
-    msg = user_message.upper()
+import re
+import sqlite3
+import dateparser
+from datetime import datetime
 
-    # Extract details
-    reg_match = re.search(r'RA\d{13}', msg)
+# -------------------------------
+# Flexible Session Mapping
+# -------------------------------
+SESSION_MAP = {
+    "FN": ["FN", "forenoon", "morning"],
+    "AN": ["AN", "afternoon", "evening"]
+}
+
+def parse_session(msg):
+    """Return standard session code 'FN' or 'AN' based on flexible terms."""
+    msg = msg.lower()
+    for standard, variants in SESSION_MAP.items():
+        for v in variants:
+            if v.lower() in msg:
+                return standard
+    return None
+
+def parse_date(msg):
+    """Handles natural language dates using dateparser and outputs YYYY-MM-DD."""
+    dt = dateparser.parse(msg, settings={'PREFER_DATES_FROM': 'future'})
+    if dt:
+        return dt.date().strftime('%Y-%m-%d')
+    
+    # Fallback for MM/DD/YY or MM/DD/YYYY
+    date_match = re.search(r'(\d{1,2}/\d{1,2}/\d{2,4}|\d{4}-\d{2}-\d{2})', msg)
+    if date_match:
+        try:
+            return datetime.strptime(date_match.group(0), "%m/%d/%y").strftime('%Y-%m-%d')
+        except:
+            try:
+                return datetime.strptime(date_match.group(0), "%m/%d/%Y").strftime('%Y-%m-%d')
+            except:
+                try:
+                    return datetime.strptime(date_match.group(0), "%Y-%m-%d").strftime('%Y-%m-%d')
+                except:
+                    return None
+    return None
+
+# -------------------------------
+# Updated Seat Checker
+# -------------------------------
+DB_FILE = "srm_data.db"  # Make sure your SQLite DB file
+
+def check_seat_from_message(user_message):
+    """
+    Check seat for a student from a user message.
+    Handles:
+    - Flexible session names (FN, AN, morning, afternoon)
+    - Natural language dates
+    - Standard register numbers
+    """
+    msg = user_message.strip()
+
+    # 1️⃣ Extract register number
+    reg_match = re.search(r'RA\d{13}', msg.upper())
     reg_no = reg_match.group(0) if reg_match else None
 
-    session_match = re.search(r'\b(FN|AN)\b', msg)
-    session = session_match.group(0) if session_match else None
+    # 2️⃣ Extract session
+    session = parse_session(msg)
 
-    date_match = re.search(r'(\d{1,2}/\d{1,2}/\d{4}|\d{4}-\d{2}-\d{2})', msg)
-    if "TOMORROW" in msg:
-        date = (datetime.now() + timedelta(days=1)).date().strftime('%Y-%m-%d')
-    elif date_match:
-        try:
-            date = pd.to_datetime(date_match.group(0), dayfirst=False, errors='coerce').strftime('%Y-%m-%d')
-        except:
-            return "⚠️ Invalid date format. Use MM/DD/YYYY or YYYY-MM-DD."
-    else:
-        date = None
+    # 3️⃣ Extract date
+    date = parse_date(msg)
 
+    # 4️⃣ Check missing info
     missing = []
     if not reg_no:
         missing.append("register number")
     if not session:
-        missing.append("session (FN/AN)")
+        missing.append("session (FN/AN or morning/afternoon)")
     if not date:
-        missing.append("date (MM/DD/YYYY or 'tomorrow')")
+        missing.append("date (MM/DD/YYYY, YYYY-MM-DD, or natural language like 'tomorrow', 'next Friday')")
 
     if missing:
         return "Please provide your " + ", ".join(missing) + " to check your seat."
 
-    # Query DB
-    conn = sqlite3.connect(DB_FILE)
-    c = conn.cursor()
-    c.execute("""
-        SELECT seat_number FROM seats
-        WHERE register_number = ? AND session = ? AND date = ?
-    """, (reg_no, session, date))
-    row = c.fetchone()
-    conn.close()
+    # 5️⃣ Query SQLite DB
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        c = conn.cursor()
+        c.execute("""
+            SELECT seat_number FROM seats
+            WHERE register_number = ? AND session = ? AND date = ?
+        """, (reg_no, session, date))
+        row = c.fetchone()
+        conn.close()
+    except Exception as e:
+        return f"⚠️ Database error: {e}"
 
+    # 6️⃣ Return seat info
     if row:
         return f"🎟️ Seat for {reg_no} on {date} ({session}): **{row[0]}**"
     else:
         return "No seat details found for the provided information."
 
-
 # -------------------------------
 # Authenticate Hugging Face
 # -------------------------------
-# login("HF_TOKEN") replace HF_TOKEN with your actual token or set as env variable
-
-import os
-from huggingface_hub import login
-
-login(token=os.getenv("HF_TOKEN"))
-
+login("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")
 
 # -------------------------------
 # Load JSON dataset for RAG
@@ -291,12 +444,16 @@ def rag_query(question, top_k=5):
 
     q_norm = normalize(question)
 
-    seat_match = re.search(r'RA\d{13}', question.upper())
-    session_match = re.search(r'\b(FN|AN)\b', question.upper())
-    date_match = re.search(r'(\d{1,2}/\d{1,2}/\d{4}|\d{4}-\d{2}-\d{2})', question)
+    # 1️⃣ Extract seat info
+    reg_match = re.search(r'RA\d{13}', question.upper())
+    reg_no = reg_match.group(0) if reg_match else None
+    session = parse_session(question)
+    date = parse_date(question)
 
-    if seat_match and session_match and date_match:
+    # If all present → check seat
+    if reg_no and session and date:
         return check_seat_from_message(question)
+
 
     if is_gibberish(question):
             return "Hmm… I cannot understand that! Could you rephrase that?"
@@ -416,10 +573,6 @@ CREATE TABLE IF NOT EXISTS seats (
     seat_number TEXT
 )
 """)
-
-conn.commit()
-conn.close()
-
 
 @app.route("/")
 def home():
@@ -576,6 +729,68 @@ def clear_data():
     except Exception as e:
         return jsonify({"status": "error", "message": f"Failed to clear data: {e}"}), 500
 
+@app.route('/team')
+def team():
+    return render_template('team.html')
+
+# Create announcements table
+c.execute("""
+CREATE TABLE IF NOT EXISTS announcements (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    message TEXT NOT NULL,
+    date TEXT NOT NULL,
+    urgent INTEGER DEFAULT 0
+)
+""")
+
+conn.commit()
+conn.close()
+
+# Fetch all announcements
+@app.route("/get_announcements")
+def get_announcements():
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("SELECT id, title, message, date, urgent FROM announcements ORDER BY id DESC")
+    rows = c.fetchall()
+    conn.close()
+
+    announcements = [
+        {"id": r[0], "title": r[1], "message": r[2], "date": r[3], "urgent": bool(r[4])} 
+        for r in rows  # use the fetched rows, not c.fetchall() again
+    ]
+    return jsonify(announcements)
+
+# Admin adds a new announcement
+@app.route("/admin/add_news", methods=["POST"])
+def add_news():
+    data = request.get_json()
+    title = data.get("title")
+    message = data.get("message")
+    date = data.get("date")
+    urgent = 1 if data.get("urgent") else 0
+
+    if not title or not message or not date:
+        return jsonify({"status":"error", "message":"All fields are required!"}), 400
+
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("INSERT INTO announcements (title, message, date, urgent) VALUES (?, ?, ?, ?)",
+              (title, message, date, urgent))
+    conn.commit()
+    conn.close()
+    return jsonify({"status": "success", "message": "Announcement added!"})
+
+# Delete a news item
+@app.route("/admin/delete_news/<int:news_id>", methods=["DELETE"])
+def delete_news(news_id):
+    conn = sqlite3.connect(DB_FILE)
+    c = conn.cursor()
+    c.execute("DELETE FROM announcements WHERE id = ?", (news_id,))
+    conn.commit()
+    conn.close()
+    return jsonify({"status": "success", "message": "Announcement deleted!"})
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5001, debug=True)
