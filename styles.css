@@ -14,6 +14,10 @@ body {
   align-items: center;
 }
 
+body {
+  min-height: 200vh; /* or some height taller than viewport */
+}
+
 /* Push chat wrapper below header */
 .chat-wrapper {
   position: fixed;
@@ -49,7 +53,7 @@ body {
 /* Header */
 .header {
   position:static;  
-  background: linear-gradient(135deg, #0400ff, #f3af11);
+  background: linear-gradient(135deg, #000000, #8400ff);
   color: #fff;
   padding: 25px 20px;
   text-align: center;
@@ -106,15 +110,15 @@ body {
 }
 
 .user-message {
-  background: linear-gradient(120deg, #132450, #1b2a63); /* SRM dark blue shades */
+  background: linear-gradient(120deg, #000000,#7700ff); /* SRM dark blue shades */
   color: #f2e8cf; /* white text */
   align-self: flex-end;
   border-bottom-right-radius: 5px;
 }
 
 .assistant-message {
-  background: linear-gradient(120deg, #fbaf41, #ffd17d); /* SRM gold shades */
-  color: #132450; /* blue text */
+  background: linear-gradient(120deg, #7700ff, #000000); /* SRM gold shades */
+  color: #ffffff; /* blue text */
   align-self: flex-start;
   border-bottom-left-radius: 5px;
 }
@@ -164,16 +168,16 @@ body {
   padding: 0 18px;
   border: none;
   border-radius: 50%;
-  background: #132450;
-  color: #f2e8cf;
+  background: #5d00ff;
+  color: #ffffff;
   cursor: pointer;
   font-size: 1.3rem;
   transition: 0.2s;
 }
 
 .input-area button:hover {
-  background: #fbaf41;
-  color: #132450;
+  background: #000000;
+  color: #ffffff;
 }
 
 /* Animations */
@@ -221,8 +225,6 @@ body {
   margin-left: 0; /* remove any margin */
 }
 
-
-
 .srm-logo {
   width: 120px;
   height: auto;
@@ -233,7 +235,6 @@ body {
   from { opacity: 0; transform: translateX(-30px); }
   to { opacity: 1; transform: translateX(0); }
 }
-
 
 /* Text next to logo */
 .srm-text h1 {
@@ -340,7 +341,7 @@ body {
 }
 
 .tc-text::-webkit-scrollbar-thumb {
-    background-color: #7c3aed;
+    background-color: #5d00ff;
     border-radius: 3px;
 }
 
@@ -349,7 +350,7 @@ body {
     display: block;
     margin: 20px auto 0 auto;
     padding: 12px 25px;
-    background: linear-gradient(135deg, #1100cf, #d8d500);
+    background: linear-gradient(135deg, #7803ff, #000000);
     border: none;
     border-radius: 50px;
     color: white;
@@ -402,20 +403,18 @@ body.modal-open .admin-panel button {
     pointer-events: auto;
 }
 
-
 .side-text {
-  position: absolute;      /* stays in viewport */
+  position: fixed;      /* stays in viewport */
   top: 50%;             /* vertically centered at start */
   left: 40px;
   color: #fafafa;
   font-family: 'Poppins', sans-serif;
-  z-index: 1;           /* behind header */
+  z-index: 9997;           /* behind header */
   opacity: 1;
   transform: translateY(-50%); /* offset to truly center */
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-/* hidden state like admin-panel */
 .side-text.hidden {
   opacity: 0;
   transform: translateY(-20px); /* slightly move up */
@@ -475,7 +474,7 @@ body, html {
   position: fixed;
   top: 20px;
   right: 25px;
-  background: linear-gradient(90deg, #7c3aed, #9333ea);
+  background: linear-gradient(90deg, #000000, #8400ff);
   color: white;
   border: none;
   padding: 10px 18px;
@@ -485,56 +484,14 @@ body, html {
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   transition: all 0.3s ease;
-  z-index: 999; /* stays above everything */
+  z-index: 10000; /* stays above everything */
 }
 
 .shortcut-btn:hover {
   transform: scale(1.05);
-  background: linear-gradient(90deg, #9333ea, #a855f7);
+  background: linear-gradient(90deg, #8200fb, #000000);
 }
 
-/* Exam Timetable */
-#exam-timetable {
-  display: none;          /* hidden initially */
-  opacity: 0;             /* for fade-in effect */
-  transition: opacity 1s ease;
-  margin: 120px auto 50px auto; /* adjust margin to appear below header */
-  width: 90%;
-  max-width: 900px;
-  background: #ffffff;    /* white background */
-  padding: 20px 30px;
-  border-radius: 12px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-  z-index: 500;
-  position: relative;
-}
-
-/* Timetable Table */
-#timetable-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.95rem;
-}
-
-#timetable-table th,
-#timetable-table td {
-  padding: 12px 15px;
-  border-bottom: 1px solid #ddd;
-}
-
-#timetable-table th {
-  background-color: #fbaf41; /* SRM gold */
-  color: #132450; /* dark blue */
-}
-
-#timetable-table tr:hover {
-  background-color: rgba(251,175,65,0.1);
-}
-
-body {
-  min-height: 200vh; /* or some height taller than viewport */
-}
 
 /* ------------------ Admin Panel Styles ------------------ */
 .admin-panel {
@@ -542,15 +499,15 @@ body {
   bottom: 20px;
   right: 500px;
   left: 20px;
-  background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(45deg, #6a00ff, #000000);
   backdrop-filter: blur(12px);
   padding: 25px;
   border-radius: 15px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-  width: 400px;
-  color: #fff;
+  box-shadow: 0 0 25px rgba(106, 0, 255, 0.3);
+  width: 600px;
+  color: #5d00ff;
   font-family: 'Poppins', sans-serif;
-  z-index: 999;
+  z-index: 10000;
   
   /* animation setup */
   opacity: 0;
@@ -604,18 +561,18 @@ body {
   outline: none;
   font-size: 14px;
   background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: #ffffff;
 }
 
 .password-container input::placeholder {
-  color: #ddd;
+  color: #ffffff;
 }
 
 .password-container button {
   padding: 8px 12px;
   border-radius: 8px;
   border: none;
-  background: linear-gradient(45deg, #f97316, #7c3aed);
+  background: linear-gradient(45deg, #7500fa, #000000);
   color: #fff;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -626,87 +583,395 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }
 
-.upload-section {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 15px;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-
-.upload-section input[type="file"] {
-  padding: 6px;
-  border-radius: 8px;
-  border: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  cursor: pointer;
-}
-
-.upload-section button {
-  padding: 8px;
-  border-radius: 8px;
-  border: none;
-  background: linear-gradient(45deg, #06b6d4, #3b82f6);
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.upload-section button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-}
-
-.status-text {
-  font-size: 13px;
-  min-height: 18px;
-  color: #fff;
-  text-align: center;
-}
-
-/* ---------- Stylish File Upload ---------- */
-.file-upload {
-  position: relative;
-  display: inline-block;
-  width: 100%;
-}
-
-.file-upload input[type="file"] {
-  position: absolute;
-  left: 0;
+#matrixCanvas {
+  position: fixed;
   top: 0;
-  opacity: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  cursor: pointer;
+  z-index: 9998; /* below floating images but above page content if needed */
+  pointer-events: none;
+  display: none; /* hidden by default */
 }
 
-.custom-file-label {
-  display: block;
-  background: linear-gradient(90deg, #7c3aed, #9333ea);
-  color: #fff;
+.matrix {
+  background: rgba(0, 0, 0, 0.8);
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
   padding: 10px 15px;
-  border-radius: 10px;
+  margin: 8px 0;
+  border-radius: 8px;
+  text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00, 0 0 20px #00ff00;
+  box-shadow: 0 0 10px #00ff00 inset;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.8s ease, transform 0.8s ease, box-shadow 0.8s ease;
+}
+
+/* Fade-in animation */
+.matrix.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes matrixPulse {
+  0%, 100% {
+    text-shadow: 0 0 8px #00ff00, 0 0 15px #00ff00;
+  }
+  50% {
+    text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00;
+  }
+}
+
+.matrix.pulse {
+  animation: matrixPulse 1.5s infinite alternate;
+}
+
+#rightPanel {
+  position: fixed;
+  top: 90px; 
+  right: 20px;
+  width: 400px;           /* smaller width */
+  max-height: 100px;      /* smaller height */
+  padding: 10px;
+  background: linear-gradient(90deg, #8400ff, #000000);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  z-index: 10000;
+  overflow: hidden;       /* hide overflow outside the panel */
+}
+
+#rightPanel h3 {
+  margin-top: 0;
+  font-size: 16px;
+  color: #fff;
   text-align: center;
+}
+
+#alertsSidebar {
+  width: 100%;
+  height: 60px;      /* scrollable area height */
+  overflow-y: scroll;       /* enable vertical scroll */
+  background: #767676;
+  border-radius: 6px;
+  padding: 8px;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,0.1);
+  position:relative;
+}
+
+.alertsWrapper {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+.alert-item.urgent {
+  border-left: 5px solid red;
+  background: #ffe5e5;
+}
+
+.alert-item {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: fadeInAlert 0.5s forwards;
+}
+
+@keyframes fadeInAlert {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Alerts Sidebar Styling */
+#alertsSidebar {
+  max-height: 350px;
+  overflow-y: auto;
+  padding: 10px;
+  border-radius: 8px;
+  background: #f9f9f9;
+  color: #333;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.announcement {
+  background: #fff;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.announcement h4 {
+  margin: 0 0 3px 0;
+  font-size: 1rem;
+}
+
+.announcement p {
+  margin: 3px 0;
+  font-size: 0.85rem;
+}
+
+.announcement small {
+  color: gray;
+  font-size: 0.75rem;
+}
+
+/* ---------------- Admin Panel ---------------- */
+.admin-panel {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0, 255, 255, 0.15);
+  margin: 40px auto;
+  padding: 20px;
+  width: 40%;
+  max-width: 1200px;
+  text-align: center;
+  transition: all 0.4s ease;
+  overflow: hidden;
+  max-height: 200px; /* collapsed height */
+}
+
+/* Expanded state (after password verified) */
+.admin-panel.expanded {
+  max-height: 80vh; /* takes 80% of viewport height */
+  overflow-y: auto;
+  padding-bottom: 40px;
+}
+
+/* Scrollbar styling */
+.admin-panel::-webkit-scrollbar {
+  width: 8px;
+}
+.admin-panel::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.4);
+  border-radius: 8px;
+}
+.admin-panel::-webkit-scrollbar-thumb:hover {
+  background: rgb(255, 255, 255);
+}
+
+.admin-panel h2 {
+  font-size: 1.8em;
+  color: #00ffff;
+  margin-bottom: 20px;
+}
+
+/* Password section */
+.password-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.password-container input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ffffff;
+  background: transparent;
+  color: #fff;
+}
+.password-container button {
+  background: linear-gradient(45deg, #6200ff, #000000);
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  color: #ffffff;
   font-weight: 600;
-  font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
 }
-
-.custom-file-label:hover {
-  background: linear-gradient(90deg, #9333ea, #a855f7);
+.password-container button:hover {
   transform: scale(1.05);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.35);
 }
 
-.file-name {
-  margin-top: 6px;
-  font-size: 0.85rem;
-  color: #f4f4f4;
-  text-align: center;
-  opacity: 0.85;
+/* Status text */
+.status-text {
+  color: #00ffff;
+  font-size: 0.9em;
+  margin-top: 10px;
+}
+
+/* -------- Section Layout -------- */
+.admin-sections {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+/* Each card/section */
+.upload-section {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  transition: 0.3s;
+}
+.upload-section:hover {
+  transform: translateY(-4px);
+  border-color: #00ffff;
+}
+
+/* File upload buttons */
+.file-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.custom-file-label {
+  background: linear-gradient(45deg, #0077ff, #00ffff);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #000;
+  font-weight: 600;
+  display: inline-block;
+}
+input[type="file"] {
+  display: none;
+}
+
+/* Generic buttons */
+.upload-section button {
+  background: linear-gradient(45deg, #00ffff, #0077ff);
+  border: none;
+  color: #000;
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.upload-section button:hover {
+  transform: scale(1.05);
+}
+
+/* ---------------- News Section ---------------- */
+#newsUploadDiv {
+  margin-top: 10px;
+  position: relative;      /* ensure it sits above overlays */
+  z-index: 1001;           /* higher than modal background but below modal if needed */
+}
+
+.news-flex-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  pointer-events: auto;     /* allow clicks inside */
+}
+
+.news-add-column,
+.news-delete-column {
+  flex: 1;
+  min-width: 280px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 20px;
+  position: relative;       /* relative for z-index */
+  z-index: 1002;            /* above overlay layers */
+  pointer-events: auto;     /* ensure clicks register */
+}
+
+/* Inputs and textarea */
+.news-input-row input,
+.news-input-row textarea,
+.news-add-column input[type="date"],
+.news-add-column input,
+.news-add-column textarea,
+.news-delete-column input,
+.news-delete-column textarea {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.15);  /* slightly visible background */
+  border: 1px solid #00ffff;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 10px;
+  pointer-events: auto;             /* allow typing */
+}
+
+/* Ensure placeholder is visible */
+.news-input-row input::placeholder,
+.news-input-row textarea::placeholder,
+.news-add-column input::placeholder,
+.news-add-column textarea::placeholder {
+  color: #ddd;
+  opacity: 1;
+}
+
+/* Buttons */
+.news-add-column button,
+.news-delete-column button {
+  width: 100%;
+  background: linear-gradient(45deg, #00ffff, #0077ff);
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  color: #000;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  pointer-events: auto;     /* allow clicks */
+}
+
+.news-add-column button:hover,
+.news-delete-column button:hover {
+  transform: scale(1.05);
+}
+
+/* Ensure admin panel allows all nested elements */
+body.modal-open .admin-panel * {
+  pointer-events: auto !important;
+}
+
+.news-add-column input[type="date"] {
+  pointer-events: auto !important; /* allow interaction */
+  position: relative;              /* make it above any overlapping layers */
+  z-index: 1003;                   /* higher than modal overlays */
+  background: rgba(0,0,0,0.15);   /* visible background */
+  color: #fff;
+  border: 1px solid #00ffff;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+/* Style the delete news dropdown to match other inputs */
+#delete-news-select {
+    width: 100%;
+    padding: 10px 12px;          /* similar to other inputs */
+    border-radius: 8px;
+    border: 1px solid #00ffff;   /* cyan border like other inputs */
+    background: rgba(0, 0, 0, 0.15);  /* match other input backgrounds */
+    color: #fff;                 /* white text */
+    font-size: 1rem;
+    outline: none;
+    appearance: none;            /* remove default arrow for consistency */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Hover & focus effects */
+#delete-news-select:hover,
+#delete-news-select:focus {
+    border-color: #ffffff;       /* highlight border on hover/focus */
+    box-shadow: 0 0 6px rgba(0, 255, 255, 0.5);
+}
+
+/* Optional: custom arrow */
+#delete-news-select::after {
+    content: '▼';               /* simple dropdown arrow */
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #fff;
 }
