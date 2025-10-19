@@ -114,22 +114,6 @@ import sqlite3
 from datetime import datetime
 import numpy as np
 
-# Load once
-embedder = SentenceTransformer('all-MiniLM-L6-v2')
-
-from rapidfuzz import fuzz
-import re
-from datetime import datetime
-import sqlite3
-
-# Add your acronym mapping here
-SUBJECT_ACRONYMS = {
-    "ooad": "object oriented analysis and design",
-    "ai": "artificial intelligence",
-    "cas": "cognitive analytical skills",
-    "eh": "ethical hacking",
-    "fsd": "full stack development"
-}
 
 from rapidfuzz import fuzz
 import re
@@ -314,7 +298,7 @@ def parse_date(msg):
 # -------------------------------
 # Updated Seat Checker
 # -------------------------------
-DB_FILE = "srm_data.db"  # Make sure your SQLite DB file
+DB_FILE = "srm_data.db"  
 
 def check_seat_from_message(user_message):
     """
